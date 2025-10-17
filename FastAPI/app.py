@@ -30,7 +30,7 @@ def create_new_item(item: Item): #using item for fastApi to find the itens name 
     return item
     
 @app.put("/itens/{item_id}") # endpoint put to update an item inside the list
-def update_item(item_id: int, item: Item): # 
+def update_item(item_id: int, item: Item): # item_id to receive the id, and item: Item to the name and email
     for existing_item in itens: # array on the list, using existing item 
         if existing_item.id == item_id: # finding the correct id
             existing_item.name = item.name  # changing the name 
@@ -38,12 +38,10 @@ def update_item(item_id: int, item: Item): #
             return existing_item # returning the updated item to the list
     raise HTTPException(status_code=404, detail="Item not found") # error message
         
-@app.delete("/itens/{item_id}")
-def delete_item(item_id: int):
-    for item in itens:
-        if item.id == item_id:
-            itens.remove(item)
+@app.delete("/itens/{item_id}") # endpoint delete to delete an item
+def delete_item(item_id: int): 
+    for item in itens: # array
+        if item.id == item_id: # finding the correct ID
+            itens.remove(item) # removing the item
             return
     raise HTTPException(status_code=404, detail="Item not found") # error message
-
-    
