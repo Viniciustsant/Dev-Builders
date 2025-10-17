@@ -38,3 +38,12 @@ def update_item(item_id: int, item: Item): #
             return existing_item # returning the updated item to the list
     raise HTTPException(status_code=404, detail="Item not found") # error message
         
+@app.delete("/itens/{item_id}")
+def delete_item(item_id: int):
+    for item in itens:
+        if item.id == item_id:
+            itens.remove(item)
+            return
+    raise HTTPException(status_code=404, detail="Item not found") # error message
+
+    
